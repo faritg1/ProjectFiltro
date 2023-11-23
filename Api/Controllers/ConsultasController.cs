@@ -1,12 +1,32 @@
-# Carlos farit
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Api.Dtos;
+using AutoMapper;
+using Domain.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Persistence.Data;
 
-Devuelve un listado con el código de pedido, código de cliente, fecha 
-esperada y fecha de entrega de los pedidos cuya fecha de entrega ha sido al 
-menos dos días antes de la fecha esperada
+namespace Api.Controllers
+{
+    public class ConsultasController : BaseController
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+        private readonly ProyectoJardineriaContext _context;
 
-http://localhost:5004/Consultas/Primera
+        public ConsultasController(IUnitOfWork unitOfWork, IMapper mapper, ProyectoJardineriaContext context)
+        {
+        _unitOfWork = unitOfWork;
+        _mapper = mapper;
+            _context = context;
+        }
 
-```[HttpGet("Primera")]
+
+        // 1.
+        [HttpGet("Primera")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public Task<IQueryable<PrimeraDto>> Getprimera()
@@ -22,16 +42,12 @@ http://localhost:5004/Consultas/Primera
 
             };
             return  Task.FromResult(client);
-        }```
+        }
 
-Devuelve las oficinas donde no trabajan ninguno de los empleados que 
-hayan sido los representantes de ventas de algún cliente que haya realizado 
-la compra de algún producto de la gama Frutales.
+        // 2. 
 
-http://localhost:5004/Consultas/Tercera
-
-
-```[HttpGet("Tercera")]
+        // 3. 
+        [HttpGet("Tercera")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -45,15 +61,11 @@ http://localhost:5004/Consultas/Tercera
                 NombreEmpleado = emp.Nombre
             };
             return Task.FromResult(office);
-        }```
+        }
 
-Devuelve un listado de los 20 productos más vendidos y el número total de 
-unidades que se han vendido de cada uno. El listado deberá estar ordenado 
-por el número total de unidades vendidas.
 
-http://localhost:5004/Consultas/Cuarta
-
-```[HttpGet("Cuarta")] // revisar
+        // 4. 
+        [HttpGet("Cuarta")] // revisar
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -84,16 +96,9 @@ http://localhost:5004/Consultas/Cuarta
 
             return topSoldProducts;
         }
-```
 
-Lista las ventas totales de los productos que hayan facturado más de 3000 
-euros. Se mostrará el nombre, unidades vendidas, total facturado y total 
-facturado con impuestos (21% IVA)
-
-http://localhost:5004/Consultas/Quinta
-
-```
-[HttpGet("Quinta")]
+        // 5. 
+        [HttpGet("Quinta")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -114,15 +119,15 @@ http://localhost:5004/Consultas/Quinta
 
             return productsSales;
         }
-```
 
+        // 6. 
 
-Devuelve un listado con los datos de los empleados que no tienen clientes 
-asociados y el nombre de su jefe asociado
+        // 7. 
 
-http://localhost:5004/Consultas/Novena
-```
-[HttpGet("Novena")]
+        // 8. 
+
+        // 9. 
+        [HttpGet("Novena")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -139,17 +144,9 @@ http://localhost:5004/Consultas/Novena
             };
             return Task.FromResult(emplo);
         }
-```
 
-Devuelve el nombre del producto del que se han vendido más unidades. 
-(Tenga en cuenta que tendrá que calcular cuál es el número total de 
-unidades que se han vendido de cada producto a partir de los datos de la 
-tabla detalle_pedido)
-
-http://localhost:5004/Consultas/Decima
-
-```
-[HttpGet("Decima")]
+        // 10. 
+        [HttpGet("Decima")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -168,4 +165,6 @@ http://localhost:5004/Consultas/Decima
             return Task.FromResult(product);
         }
 
-```
+
+    }
+}
