@@ -1,4 +1,5 @@
 using System.Reflection;
+using Api.Extensions;
 using AspNetCoreRateLimit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -22,12 +23,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-/* builder.Services.ConfigureCors();
+builder.Services.ConfigureCors();
 builder.Services.AddApplicationServices();
 builder.Services.ConfigureRateLimiting();
-builder.Services.ConfigureApiVersioning();
 builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
-builder.Services.AddJwt(builder.Configuration); */
 
 builder.Services.AddDbContext<ProyectoJardineriaContext>(options =>
 {
@@ -35,17 +34,6 @@ builder.Services.AddDbContext<ProyectoJardineriaContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
-builder.Services.AddSwaggerGen(options =>
-{
-    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-    {
-        In = ParameterLocation.Header,
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey
-    });
-
-    options.OperationFilter<SecurityRequirementsOperationFilter>();
-});
 
 var app = builder.Build();
 
@@ -72,11 +60,10 @@ using (var scope = app.Services.CreateScope())
 }
 
 
-/* app.UseIpRateLimiting();
+app.UseIpRateLimiting();
 app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 
-app.UseAuthentication(); */
 app.UseAuthorization();
 
 app.MapControllers();
