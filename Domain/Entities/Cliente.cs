@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace Domain.Entities;
 
-public partial class Cliente
+public partial class Cliente : BaseEntityInt
 {
-    public int Id { get; set; }
-
     public string NombreCliente { get; set; }
 
     public string NombreContacto { get; set; }

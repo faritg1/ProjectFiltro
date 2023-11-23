@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace Domain.Entities;
 
-public partial class Oficina
+public partial class Oficina : BaseEntityString
 {
-    public string Id { get; set; }
-
     public string Ciudad { get; set; }
 
     public string Pais { get; set; }

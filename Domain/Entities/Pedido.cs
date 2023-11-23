@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace Domain.Entities;
 
-public partial class Pedido
+public partial class Pedido : BaseEntityInt
 {
-    public int Id { get; set; }
-
     public DateOnly FechaPedido { get; set; }
 
     public DateOnly FechaEsperada { get; set; }

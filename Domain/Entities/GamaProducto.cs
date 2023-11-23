@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace Domain.Entities;
 
-public partial class GamaProducto
+public partial class GamaProducto : BaseEntityString
 {
-    public string Id { get; set; }
-
     public string DescripcionTexto { get; set; }
 
     public string DescripcionHtml { get; set; }
